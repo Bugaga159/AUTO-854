@@ -10,8 +10,11 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.TmsLink;
 import io.qameta.allure.junit5.AllureJunit5;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.qameta.allure.selenide.AllureSelenide;
 import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,6 +29,7 @@ public class TestBase {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
         DriverSettings.configure();
         RestAssured.baseURI = App.config.apiUrl();
+        RestAssured.filters(new AllureRestAssured());
     }
 
     @AfterEach
